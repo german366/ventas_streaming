@@ -1,0 +1,55 @@
+# Tolerancia a fallos: se reinicia el TaskManager (docker compose up -d taskmanager, con 4 slots) con el job en ejecución.
+# Flink debe reiniciar el job desde el último checkpoint completado y el flujo debe continuar sin intervención.
+
+$ antes: checkpoints
+{'restored': 0, 'total': 25, 'in_progress': 0, 'completed': 23, 'failed': 2} último completado id 23
+
+$ date -u; docker compose up -d taskmanager
+mar 22 sep 2026 00:09:01 UTC
+ Container ventas-streaming-taskmanager-1 Starting 
+ Container ventas-streaming-taskmanager-1 Started 
+
+$ después: estado del job y excepción registrada
+mar 22 sep 2026 00:10:25 UTC
+ventas-por-ventana RUNNING tareas running 7 / 7
+  excepción: java.util.concurrent.CompletionException | [4]Leer ventas desde Kafka/KafkaIO.Read/KafkaIO.Read.ReadFro | 1790035763932
+  excepción: java.util.concurrent.CompletionException | Source: Impulse (1/1) - execution #5 | 1790035755634
+$ checkpoints tras el reinicio
+{'restored': 7, 'total': 27, 'in_progress': 0, 'completed': 23, 'failed': 4}
+restaurado desde checkpoint id 23 en 1790035775285
+$ taskmanagers
+   172.21.0.4:46645-260a74 slots 4 libres 2
+
+$ TASA=4 DURACION=60 make carga   # tráfico nuevo tras la recuperación
+2026-09-22 00:11:46,440 INFO productor resumen del productor: {"enviados": 258, "confirmados": 258, "errores": 0, "por_etiqueta": {"DESORDEN": 25, "DUPLICADO": 9, "INVALIDO:json_corrupto": 1, "INVALIDO:monto_negativo": 1, "INVALIDO:sin_payload": 1, "MUY_TARDIO": 3, "OK": 215, "TARDIO": 3}}
+
+$ materializador: panes recibidos después del reinicio (00:09 UTC en adelante)
+      7 S2|2026-09-22T00:11:00.000Z
+      6 S4|2026-09-22T00:11:00.000Z
+      6 S3|2026-09-22T00:11:00.000Z
+      6 S1|2026-09-22T00:11:00.000Z
+      5 S6|2026-09-22T00:11:00.000Z
+      5 S5|2026-09-22T00:11:00.000Z
+      5 S2|2026-09-22T00:10:00.000Z
+      5 S1|2026-09-22T00:10:00.000Z
+      4 S5|2026-09-22T00:10:00.000Z
+      4 S4|2026-09-22T00:10:00.000Z
+      4 S3|2026-09-22T00:10:00.000Z
+      3 S6|2026-09-22T00:10:00.000Z
+
+$ ventanas nuevas materializadas tras el reinicio
+S1|2026-09-22T00:10:00.000Z | 2026-09-22T00:10:00.000Z | 2026-09-22T00:11:00.000Z | 17           | 8340000         | 0                    | 4          | LATE        | 5              
+S2|2026-09-22T00:10:00.000Z | 2026-09-22T00:10:00.000Z | 2026-09-22T00:11:00.000Z | 19           | 7199000         | 1                    | 4          | LATE        | 5              
+S3|2026-09-22T00:10:00.000Z | 2026-09-22T00:10:00.000Z | 2026-09-22T00:11:00.000Z | 13           | 6386000         | 0                    | 3          | LATE        | 4              
+S4|2026-09-22T00:10:00.000Z | 2026-09-22T00:10:00.000Z | 2026-09-22T00:11:00.000Z | 6            | 3983000         | 0                    | 3          | LATE        | 4              
+S5|2026-09-22T00:10:00.000Z | 2026-09-22T00:10:00.000Z | 2026-09-22T00:11:00.000Z | 7            | 2468000         | 0                    | 3          | LATE        | 4              
+S6|2026-09-22T00:10:00.000Z | 2026-09-22T00:10:00.000Z | 2026-09-22T00:11:00.000Z | 3            | 830000          | 0                    | 2          | LATE        | 3              
+S1|2026-09-22T00:11:00.000Z | 2026-09-22T00:11:00.000Z | 2026-09-22T00:12:00.000Z | 60           | 22671000        | 3                    | 4          | ON_TIME     | 5              
+S2|2026-09-22T00:11:00.000Z | 2026-09-22T00:11:00.000Z | 2026-09-22T00:12:00.000Z | 48           | 13467000        | 2                    | 5          | ON_TIME     | 6              
+S3|2026-09-22T00:11:00.000Z | 2026-09-22T00:11:00.000Z | 2026-09-22T00:12:00.000Z | 25           | 11498000        | 2                    | 4          | ON_TIME     | 5              
+S4|2026-09-22T00:11:00.000Z | 2026-09-22T00:11:00.000Z | 2026-09-22T00:12:00.000Z | 24           | 13199000        | 1                    | 4          | ON_TIME     | 5              
+S5|2026-09-22T00:11:00.000Z | 2026-09-22T00:11:00.000Z | 2026-09-22T00:12:00.000Z | 12           | 6639000         | 0                    | 3          | ON_TIME     | 4              
+S6|2026-09-22T00:11:00.000Z | 2026-09-22T00:11:00.000Z | 2026-09-22T00:12:00.000Z | 9            | 8297000         | 0                    | 3          | ON_TIME     | 4              
+
+$ checkpoints del job ventas-por-ventana (2f695483c3354cd55c34759c02294269) al final
+{'restored': 7, 'total': 52, 'in_progress': 0, 'completed': 48, 'failed': 4}

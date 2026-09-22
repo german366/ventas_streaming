@@ -1,0 +1,215 @@
+name: ventas-streaming
+
+x-entorno: &entorno
+  KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+  KAFKA_TOPICO_VENTAS: ventas.confirmadas.v1
+  KAFKA_TOPICO_AGREGADOS: ventas.por_ventana.v1
+  KAFKA_TOPICO_DLQ: ventas.dlq.v1
+  BEAM_JOB_ENDPOINT: beam-job-server:8099
+  BEAM_PARALLELISM: "${BEAM_PARALLELISM:-2}"
+  WINDOW_SECONDS: "${WINDOW_SECONDS:-60}"
+  ALLOWED_LATENESS_SECONDS: "${ALLOWED_LATENESS_SECONDS:-30}"
+  EARLY_FIRING_SECONDS: "${EARLY_FIRING_SECONDS:-10}"
+  SQLITE_PATH: /app/tmp/ventas.db
+  # El servicio de expansión de KafkaIO (Java) transfiere su JAR (~485 MB) por gRPC:
+  # necesita más memoria directa que la que el JVM asigna por defecto en un contenedor.
+  JAVA_TOOL_OPTIONS: "-Xmx256m -XX:MaxDirectMemorySize=1g"
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: Dockerfile
+  image: ventas-streaming/app:latest
+  environment: *entorno
+  # Mismo uid/gid que el host para poder escribir en ./tmp (el Makefile exporta UID y GID).
+  user: "${UID:-1000}:${GID:-1000}"
+  volumes:
+    - ./tmp:/app/tmp
+
+services:
+  kafka:
+    image: apache/kafka:4.1.1
+    ports:
+      - "29092:29092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: CONTROLLER://:9093,PLAINTEXT://:9092,PLAINTEXT_HOST://:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_NUM_PARTITIONS: 4
+      KAFKA_LOG_RETENTION_HOURS: 24
+      # El productor fija el timestamp del registro = event_time; los eventos
+      # "demasiado tardíos" simulados pueden estar varios minutos en el pasado.
+      KAFKA_LOG_MESSAGE_TIMESTAMP_AFTER_MAX_MS: 86400000
+      KAFKA_LOG_MESSAGE_TIMESTAMP_BEFORE_MAX_MS: 86400000
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list >/dev/null 2>&1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    mem_limit: 1200m
+
+  kafka-init:
+    image: apache/kafka:4.1.1
+    depends_on:
+      kafka:
+        condition: service_healthy
+    entrypoint: ["/bin/bash", "-ec"]
+    command:
+      - |
+        crear() { /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists "$$@"; }
+        # Entrada: clave store_id, 4 particiones (paralelismo máximo de lectura = 4).
+        crear --topic ventas.confirmadas.v1 --partitions 4 --replication-factor 1 \
+          --config retention.ms=86400000
+        # Salida: compactado por aggregate_id => conserva el último pane de cada sucursal/ventana.
+        crear --topic ventas.por_ventana.v1 --partitions 4 --replication-factor 1 \
+          --config cleanup.policy=compact --config min.cleanable.dirty.ratio=0.1 \
+          --config segment.ms=60000
+        # DLQ: inválidos y demasiado tardíos, con motivo.
+        crear --topic ventas.dlq.v1 --partitions 2 --replication-factor 1 \
+          --config retention.ms=604800000
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --describe
+
+  jobmanager:
+    platform: ${BEAM_PLATFORM:-linux/amd64}
+    build:
+      context: .
+      dockerfile: docker/flink/Dockerfile
+    image: ventas-streaming/flink:latest
+    command: jobmanager
+    ports:
+      - "8081:8081"
+    environment:
+      FLINK_PROPERTIES: |
+        jobmanager.rpc.address: jobmanager
+        jobmanager.memory.process.size: 768m
+        parallelism.default: ${BEAM_PARALLELISM:-2}
+    volumes:
+      - beam-artifacts:/tmp/beam-artifact-staging
+    mem_limit: 900m
+
+  taskmanager:
+    platform: ${BEAM_PLATFORM:-linux/amd64}
+    build:
+      context: .
+      dockerfile: docker/flink/Dockerfile
+    image: ventas-streaming/flink:latest
+    command: taskmanager
+    depends_on:
+      - jobmanager
+    environment:
+      FLINK_PROPERTIES: |
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: ${FLINK_SLOTS:-4}
+        taskmanager.memory.process.size: 2048m
+        taskmanager.memory.task.off-heap.size: 512m
+        taskmanager.memory.managed.fraction: 0.1
+        taskmanager.memory.network.min: 64m
+        taskmanager.memory.network.max: 64m
+        parallelism.default: ${BEAM_PARALLELISM:-2}
+        taskmanager.load-balance.mode: SLOTS
+    volumes:
+      - beam-artifacts:/tmp/beam-artifact-staging
+    mem_limit: 3300m
+
+  beam-job-server:
+    platform: ${BEAM_PLATFORM:-linux/amd64}
+    image: apache/beam_flink1.19_job_server:2.74.0
+    command:
+      - --flink-master=jobmanager:8081
+      - --job-host=beam-job-server
+      - --flink-conf-dir=/flink-conf
+    volumes:
+      - ./docker/flink:/flink-conf:ro
+      - beam-artifacts:/tmp/beam-artifact-staging
+    ports:
+      - "8099:8099"
+    depends_on:
+      - jobmanager
+      - taskmanager
+    mem_limit: 900m
+
+  # Envía el job Beam (streaming) al Job Server y queda esperando su finalización.
+  pipeline:
+    <<: *app
+    command: ["-c", "import runpy, sys; sys.argv=['esperar','beam-job-server:8099','300']; runpy.run_path('scripts/esperar_puerto.py', run_name='__main__'); sys.argv=['pipeline']; runpy.run_module('ventas_streaming.pipeline', run_name='__main__')"]
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+      beam-job-server:
+        condition: service_started
+    restart: on-failure
+    mem_limit: 1800m
+
+  # Sink idempotente: SQLite en ./tmp/ventas.db, con registro de la DLQ.
+  materializador:
+    <<: *app
+    command: ["-m", "ventas_streaming.materializador"]
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
+    mem_limit: 400m
+
+  # Productor sintético: guion determinista de la demostración (perfil demo)...
+  productor:
+    <<: *app
+    profiles: ["demo"]
+    command: ["-m", "ventas_streaming.productor", "--modo", "demo"]
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+    restart: "no"
+    mem_limit: 400m
+
+  # ...o carga continua con perturbaciones aleatorias reproducibles (perfil carga).
+  productor-carga:
+    <<: *app
+    profiles: ["carga"]
+    command: ["-m", "ventas_streaming.productor", "--modo", "continuo", "--tasa", "${TASA:-4}", "--duracion", "${DURACION:-300}"]
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+    restart: "no"
+    mem_limit: 400m
+
+  # Smoke test acotado y automático: fuente -> Kafka -> Beam/Flink -> Kafka -> SQLite.
+  smoke:
+    <<: *app
+    profiles: ["smoke"]
+    command: ["scripts/smoke.py"]
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+      beam-job-server:
+        condition: service_started
+    restart: "no"
+    mem_limit: 1800m
+
+  kafka-ui:
+    image: ghcr.io/kafbat/kafka-ui:latest
+    profiles: ["ui"]
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      DYNAMIC_CONFIG_ENABLED: "true"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    mem_limit: 700m
+
+volumes:
+  kafka-data:
+  beam-artifacts:

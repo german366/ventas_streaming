@@ -1,0 +1,99 @@
+$ docker compose logs materializador
+2026-09-21 23:54:38,503 INFO materializador materializador iniciado: sqlite=/app/tmp/ventas.db tópicos=ventas.por_ventana.v1,ventas.dlq.v1
+2026-09-21 23:58:00,963 INFO materializador UPSERT   S2|2026-09-21T23:57:00.000Z pane=0 EARLY tickets=12 total=4400000 dup_descartados=1
+2026-09-21 23:58:02,551 INFO materializador UPSERT   S3|2026-09-21T23:57:00.000Z pane=0 EARLY tickets=9 total=4535000 dup_descartados=0
+2026-09-21 23:58:02,563 INFO materializador UPSERT   S1|2026-09-21T23:57:00.000Z pane=0 EARLY tickets=9 total=5454000 dup_descartados=0
+2026-09-21 23:58:07,997 INFO materializador UPSERT   S4|2026-09-21T23:57:00.000Z pane=0 EARLY tickets=5 total=3793000 dup_descartados=0
+2026-09-21 23:58:08,039 INFO materializador UPSERT   S6|2026-09-21T23:57:00.000Z pane=0 EARLY tickets=3 total=830000 dup_descartados=0
+2026-09-21 23:58:08,271 INFO materializador UPSERT   S5|2026-09-21T23:57:00.000Z pane=0 EARLY tickets=4 total=960000 dup_descartados=1
+2026-09-21 23:58:16,415 INFO materializador UPSERT   S2|2026-09-21T23:58:00.000Z pane=0 EARLY tickets=8 total=2733000 dup_descartados=0
+2026-09-21 23:58:17,927 INFO materializador UPSERT   S1|2026-09-21T23:57:00.000Z pane=1 EARLY tickets=14 total=7596000 dup_descartados=1
+2026-09-21 23:58:17,941 INFO materializador UPSERT   S3|2026-09-21T23:57:00.000Z pane=1 EARLY tickets=10 total=4941000 dup_descartados=0
+2026-09-21 23:58:17,957 INFO materializador UPSERT   S3|2026-09-21T23:58:00.000Z pane=0 EARLY tickets=4 total=1664000 dup_descartados=0
+2026-09-21 23:58:24,436 INFO materializador UPSERT   S5|2026-09-21T23:57:00.000Z pane=1 ON_TIME tickets=4 total=960000 dup_descartados=1
+2026-09-21 23:58:24,463 INFO materializador UPSERT   S2|2026-09-21T23:57:00.000Z pane=1 ON_TIME tickets=12 total=4400000 dup_descartados=1
+2026-09-21 23:58:24,476 INFO materializador UPSERT   S4|2026-09-21T23:57:00.000Z pane=1 ON_TIME tickets=5 total=3793000 dup_descartados=0
+2026-09-21 23:58:24,489 INFO materializador UPSERT   S6|2026-09-21T23:57:00.000Z pane=1 ON_TIME tickets=3 total=830000 dup_descartados=0
+2026-09-21 23:58:24,496 INFO materializador UPSERT   S3|2026-09-21T23:57:00.000Z pane=2 ON_TIME tickets=10 total=4941000 dup_descartados=0
+2026-09-21 23:58:24,503 INFO materializador UPSERT   S1|2026-09-21T23:57:00.000Z pane=2 ON_TIME tickets=14 total=7596000 dup_descartados=1
+2026-09-21 23:58:26,056 INFO materializador UPSERT   S5|2026-09-21T23:58:00.000Z pane=0 EARLY tickets=4 total=1881000 dup_descartados=0
+2026-09-21 23:58:26,070 INFO materializador UPSERT   S4|2026-09-21T23:58:00.000Z pane=0 EARLY tickets=5 total=3751000 dup_descartados=0
+2026-09-21 23:58:26,080 INFO materializador UPSERT   S1|2026-09-21T23:58:00.000Z pane=0 EARLY tickets=10 total=3339000 dup_descartados=0
+2026-09-21 23:58:27,436 INFO materializador UPSERT   S2|2026-09-21T23:58:00.000Z pane=1 EARLY tickets=13 total=4134000 dup_descartados=0
+2026-09-21 23:58:41,912 INFO materializador UPSERT   S5|2026-09-21T23:58:00.000Z pane=1 EARLY tickets=6 total=3393000 dup_descartados=0
+2026-09-21 23:58:41,926 INFO materializador UPSERT   S1|2026-09-21T23:58:00.000Z pane=1 EARLY tickets=20 total=6235000 dup_descartados=0
+2026-09-21 23:58:41,948 INFO materializador UPSERT   S4|2026-09-21T23:58:00.000Z pane=1 EARLY tickets=9 total=4989000 dup_descartados=0
+2026-09-21 23:58:41,961 INFO materializador UPSERT   S6|2026-09-21T23:58:00.000Z pane=0 EARLY tickets=3 total=4751000 dup_descartados=0
+2026-09-21 23:58:41,975 INFO materializador UPSERT   S3|2026-09-21T23:58:00.000Z pane=1 EARLY tickets=9 total=5596000 dup_descartados=0
+2026-09-21 23:58:43,442 INFO materializador UPSERT   S2|2026-09-21T23:58:00.000Z pane=2 EARLY tickets=19 total=5261000 dup_descartados=0
+2026-09-21 23:58:53,410 INFO materializador UPSERT   S2|2026-09-21T23:58:00.000Z pane=3 EARLY tickets=26 total=7202000 dup_descartados=0
+2026-09-21 23:58:56,410 INFO materializador UPSERT   S5|2026-09-21T23:57:00.000Z pane=2 LATE tickets=4 total=960000 dup_descartados=1
+2026-09-21 23:58:56,420 INFO materializador UPSERT   S1|2026-09-21T23:57:00.000Z pane=3 LATE tickets=14 total=7596000 dup_descartados=1
+2026-09-21 23:58:56,429 INFO materializador UPSERT   S3|2026-09-21T23:57:00.000Z pane=3 LATE tickets=10 total=4941000 dup_descartados=0
+2026-09-21 23:58:56,436 INFO materializador UPSERT   S2|2026-09-21T23:57:00.000Z pane=2 LATE tickets=12 total=4400000 dup_descartados=1
+2026-09-21 23:58:56,441 INFO materializador UPSERT   S4|2026-09-21T23:57:00.000Z pane=2 LATE tickets=5 total=3793000 dup_descartados=0
+2026-09-21 23:58:56,447 INFO materializador UPSERT   S6|2026-09-21T23:57:00.000Z pane=2 LATE tickets=3 total=830000 dup_descartados=0
+2026-09-21 23:58:58,019 INFO materializador UPSERT   S5|2026-09-21T23:58:00.000Z pane=2 EARLY tickets=8 total=4255000 dup_descartados=0
+2026-09-21 23:58:58,030 INFO materializador UPSERT   S1|2026-09-21T23:58:00.000Z pane=2 EARLY tickets=27 total=9006000 dup_descartados=0
+2026-09-21 23:58:58,039 INFO materializador UPSERT   S4|2026-09-21T23:58:00.000Z pane=2 EARLY tickets=12 total=5553000 dup_descartados=0
+2026-09-21 23:58:58,052 INFO materializador UPSERT   S3|2026-09-21T23:58:00.000Z pane=2 EARLY tickets=14 total=8145000 dup_descartados=0
+2026-09-21 23:59:03,913 INFO materializador UPSERT   S2|2026-09-21T23:58:00.000Z pane=4 EARLY tickets=29 total=7784000 dup_descartados=0
+2026-09-21 23:59:05,476 INFO materializador UPSERT   S6|2026-09-21T23:58:00.000Z pane=1 EARLY tickets=5 total=6679000 dup_descartados=0
+2026-09-21 23:59:12,924 INFO materializador UPSERT   S2|2026-09-21T23:59:00.000Z pane=0 EARLY tickets=4 total=546000 dup_descartados=0
+2026-09-21 23:59:14,551 INFO materializador UPSERT   S3|2026-09-21T23:58:00.000Z pane=3 EARLY tickets=17 total=8766000 dup_descartados=0
+2026-09-21 23:59:14,561 INFO materializador UPSERT   S4|2026-09-21T23:59:00.000Z pane=0 EARLY tickets=3 total=1744000 dup_descartados=0
+2026-09-21 23:59:14,571 INFO materializador UPSERT   S1|2026-09-21T23:58:00.000Z pane=3 EARLY tickets=35 total=11137000 dup_descartados=0
+2026-09-21 23:59:21,414 INFO materializador UPSERT   S3|2026-09-21T23:59:00.000Z pane=0 EARLY tickets=4 total=508000 dup_descartados=0
+2026-09-21 23:59:21,424 INFO materializador UPSERT   S1|2026-09-21T23:59:00.000Z pane=0 EARLY tickets=7 total=2787000 dup_descartados=0
+2026-09-21 23:59:21,438 INFO materializador UPSERT   S6|2026-09-21T23:59:00.000Z pane=0 EARLY tickets=2 total=703000 dup_descartados=0
+2026-09-21 23:59:21,456 INFO materializador UPSERT   S5|2026-09-21T23:59:00.000Z pane=0 EARLY tickets=2 total=1266000 dup_descartados=0
+2026-09-21 23:59:23,408 INFO materializador UPSERT   S2|2026-09-21T23:59:00.000Z pane=1 EARLY tickets=11 total=2540000 dup_descartados=0
+2026-09-21 23:59:28,920 INFO materializador UPSERT   S4|2026-09-21T23:59:00.000Z pane=1 EARLY tickets=8 total=3802000 dup_descartados=0
+2026-09-21 23:59:32,412 INFO materializador UPSERT   S5|2026-09-21T23:58:00.000Z pane=3 ON_TIME tickets=8 total=4255000 dup_descartados=0
+2026-09-21 23:59:32,432 INFO materializador UPSERT   S3|2026-09-21T23:58:00.000Z pane=4 ON_TIME tickets=17 total=8766000 dup_descartados=0
+2026-09-21 23:59:32,446 INFO materializador UPSERT   S1|2026-09-21T23:58:00.000Z pane=4 ON_TIME tickets=35 total=11137000 dup_descartados=0
+2026-09-21 23:59:32,461 INFO materializador UPSERT   S4|2026-09-21T23:58:00.000Z pane=3 ON_TIME tickets=12 total=5553000 dup_descartados=0
+2026-09-21 23:59:32,475 INFO materializador UPSERT   S6|2026-09-21T23:58:00.000Z pane=2 ON_TIME tickets=5 total=6679000 dup_descartados=0
+2026-09-21 23:59:32,486 INFO materializador UPSERT   S2|2026-09-21T23:58:00.000Z pane=5 ON_TIME tickets=29 total=7784000 dup_descartados=0
+2026-09-21 23:59:33,955 INFO materializador UPSERT   S2|2026-09-21T23:59:00.000Z pane=2 EARLY tickets=16 total=5840000 dup_descartados=0
+2026-09-21 23:59:36,195 INFO materializador DLQ motivo=json_invalido event_id=None detalle=Expecting ',' delimiter: line 1 column 41 (char 40)
+2026-09-21 23:59:36,434 INFO materializador UPSERT   S5|2026-09-21T23:59:00.000Z pane=1 EARLY tickets=5 total=2968000 dup_descartados=0
+2026-09-21 23:59:36,454 INFO materializador UPSERT   S3|2026-09-21T23:59:00.000Z pane=1 EARLY tickets=7 total=2064000 dup_descartados=0
+2026-09-21 23:59:36,469 INFO materializador UPSERT   S1|2026-09-21T23:59:00.000Z pane=1 EARLY tickets=14 total=4948000 dup_descartados=0
+2026-09-21 23:59:39,752 INFO materializador DLQ motivo=monto_invalido event_id=None detalle=-165000
+2026-09-21 23:59:39,758 INFO materializador DLQ motivo=campos_faltantes event_id=None detalle=payload
+2026-09-21 23:59:39,763 INFO materializador DLQ motivo=reloj_futuro event_id=S1-pos-03-000019 detalle=595s adelantado
+2026-09-21 23:59:39,770 INFO materializador DLQ motivo=demasiado_tardio event_id=S5-pos-02-000005 detalle=98s más allá del horizonte
+2026-09-21 23:59:39,774 INFO materializador DLQ motivo=version_no_soportada event_id=None detalle=schema_version=99
+2026-09-21 23:59:39,926 INFO materializador UPSERT   S1|2026-09-21T23:58:00.000Z pane=5 LATE tickets=36 total=11273000 dup_descartados=0
+2026-09-21 23:59:42,421 INFO materializador UPSERT   S4|2026-09-21T23:59:00.000Z pane=2 EARLY tickets=11 total=6938000 dup_descartados=0
+2026-09-21 23:59:47,087 INFO materializador DLQ motivo=metodo_pago_desconocido event_id=None detalle=cripto
+2026-09-21 23:59:49,905 INFO materializador UPSERT   S5|2026-09-21T23:59:00.000Z pane=2 EARLY tickets=8 total=4288000 dup_descartados=0
+2026-09-21 23:59:49,948 INFO materializador UPSERT   S2|2026-09-21T23:59:00.000Z pane=3 EARLY tickets=28 total=8623000 dup_descartados=0
+2026-09-21 23:59:49,956 INFO materializador UPSERT   S6|2026-09-21T23:59:00.000Z pane=1 EARLY tickets=5 total=2174000 dup_descartados=0
+2026-09-21 23:59:49,964 INFO materializador UPSERT   S1|2026-09-21T23:59:00.000Z pane=2 EARLY tickets=26 total=12742000 dup_descartados=0
+2026-09-21 23:59:57,442 INFO materializador UPSERT   S3|2026-09-21T23:59:00.000Z pane=2 EARLY tickets=17 total=5529000 dup_descartados=0
+2026-09-21 23:59:57,450 INFO materializador UPSERT   S4|2026-09-21T23:59:00.000Z pane=3 EARLY tickets=17 total=8974000 dup_descartados=0
+2026-09-22 00:00:00,406 INFO materializador UPSERT   S2|2026-09-21T23:59:00.000Z pane=4 EARLY tickets=40 total=12081000 dup_descartados=0
+2026-09-22 00:00:00,901 INFO materializador UPSERT   S5|2026-09-21T23:58:00.000Z pane=4 LATE tickets=8 total=4255000 dup_descartados=0
+2026-09-22 00:00:02,011 INFO materializador UPSERT   S6|2026-09-21T23:58:00.000Z pane=3 LATE tickets=5 total=6679000 dup_descartados=0
+2026-09-22 00:00:02,025 INFO materializador UPSERT   S4|2026-09-21T23:58:00.000Z pane=4 LATE tickets=12 total=5553000 dup_descartados=0
+2026-09-22 00:00:02,039 INFO materializador UPSERT   S2|2026-09-21T23:58:00.000Z pane=6 LATE tickets=29 total=7784000 dup_descartados=0
+2026-09-22 00:00:02,048 INFO materializador UPSERT   S1|2026-09-21T23:58:00.000Z pane=6 LATE tickets=36 total=11273000 dup_descartados=0
+2026-09-22 00:00:02,058 INFO materializador UPSERT   S3|2026-09-21T23:58:00.000Z pane=5 LATE tickets=17 total=8766000 dup_descartados=0
+2026-09-22 00:00:04,916 INFO materializador UPSERT   S5|2026-09-21T23:59:00.000Z pane=3 EARLY tickets=11 total=4863000 dup_descartados=0
+2026-09-22 00:00:04,929 INFO materializador UPSERT   S6|2026-09-21T23:59:00.000Z pane=2 EARLY tickets=8 total=3341000 dup_descartados=0
+2026-09-22 00:00:04,939 INFO materializador UPSERT   S1|2026-09-21T23:59:00.000Z pane=3 EARLY tickets=41 total=18040000 dup_descartados=0
+2026-09-22 00:00:10,918 INFO materializador UPSERT   S3|2026-09-21T23:59:00.000Z pane=3 EARLY tickets=20 total=7375000 dup_descartados=0
+2026-09-22 00:00:15,953 INFO materializador UPSERT   S5|2026-09-21T23:59:00.000Z pane=4 ON_TIME tickets=11 total=4863000 dup_descartados=0
+2026-09-22 00:00:15,968 INFO materializador UPSERT   S4|2026-09-21T23:59:00.000Z pane=4 ON_TIME tickets=17 total=8974000 dup_descartados=0
+2026-09-22 00:00:15,981 INFO materializador UPSERT   S1|2026-09-21T23:59:00.000Z pane=4 ON_TIME tickets=41 total=18040000 dup_descartados=0
+2026-09-22 00:00:15,996 INFO materializador UPSERT   S2|2026-09-21T23:59:00.000Z pane=5 ON_TIME tickets=40 total=12081000 dup_descartados=0
+2026-09-22 00:00:16,011 INFO materializador UPSERT   S6|2026-09-21T23:59:00.000Z pane=3 ON_TIME tickets=8 total=3341000 dup_descartados=0
+2026-09-22 00:00:16,021 INFO materializador UPSERT   S3|2026-09-21T23:59:00.000Z pane=4 ON_TIME tickets=20 total=7375000 dup_descartados=0
+2026-09-22 00:00:53,416 INFO materializador UPSERT   S5|2026-09-21T23:59:00.000Z pane=5 LATE tickets=11 total=4863000 dup_descartados=0
+2026-09-22 00:00:53,432 INFO materializador UPSERT   S4|2026-09-21T23:59:00.000Z pane=5 LATE tickets=17 total=8974000 dup_descartados=0
+2026-09-22 00:00:53,448 INFO materializador UPSERT   S2|2026-09-21T23:59:00.000Z pane=6 LATE tickets=40 total=12081000 dup_descartados=0
+2026-09-22 00:00:53,459 INFO materializador UPSERT   S3|2026-09-21T23:59:00.000Z pane=5 LATE tickets=20 total=7375000 dup_descartados=0
+2026-09-22 00:00:53,469 INFO materializador UPSERT   S6|2026-09-21T23:59:00.000Z pane=4 LATE tickets=8 total=3341000 dup_descartados=0
+2026-09-22 00:00:53,477 INFO materializador UPSERT   S1|2026-09-21T23:59:00.000Z pane=5 LATE tickets=41 total=18040000 dup_descartados=0

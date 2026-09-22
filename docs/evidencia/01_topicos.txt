@@ -1,0 +1,17 @@
+$ docker compose logs kafka-init   # creación de tópicos
+Created topic ventas.confirmadas.v1.
+Created topic ventas.por_ventana.v1.
+Created topic ventas.dlq.v1.
+Topic: ventas.confirmadas.v1	TopicId: iu7hBYz4TVeP22GMkcw2bg	PartitionCount: 4	ReplicationFactor: 1	Configs: min.insync.replicas=1,retention.ms=86400000,message.timestamp.after.max.ms=86400000,message.timestamp.before.max.ms=86400000
+	Topic: ventas.confirmadas.v1	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: ventas.confirmadas.v1	Partition: 1	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: ventas.confirmadas.v1	Partition: 2	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: ventas.confirmadas.v1	Partition: 3	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+Topic: ventas.por_ventana.v1	TopicId: tKzZWHAuSgCgKxz78neYWg	PartitionCount: 4	ReplicationFactor: 1	Configs: min.insync.replicas=1,cleanup.policy=compact,min.cleanable.dirty.ratio=0.1,message.timestamp.after.max.ms=86400000,message.timestamp.before.max.ms=86400000,segment.ms=60000
+	Topic: ventas.por_ventana.v1	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: ventas.por_ventana.v1	Partition: 1	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: ventas.por_ventana.v1	Partition: 2	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: ventas.por_ventana.v1	Partition: 3	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+Topic: ventas.dlq.v1	TopicId: IGf_tAJgQq6vU_jEVRcewA	PartitionCount: 2	ReplicationFactor: 1	Configs: min.insync.replicas=1,retention.ms=604800000,message.timestamp.after.max.ms=86400000,message.timestamp.before.max.ms=86400000
+	Topic: ventas.dlq.v1	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+	Topic: ventas.dlq.v1	Partition: 1	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 

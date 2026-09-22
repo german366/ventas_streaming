@@ -1,0 +1,24 @@
+# Idempotencia: un segundo consumidor (grupo nuevo) relee ventas.por_ventana.v1 y ventas.dlq.v1 desde el inicio
+# hacia una base SQLite distinta (tmp/ventas_replay.db); el estado final debe ser idéntico al del materializador en línea.
+# Nota: el tópico de salida es compactado, así que el replay ve menos mensajes (Kafka ya eliminó panes antiguos
+# de cada clave) y aun así llega exactamente al mismo estado.
+
+$ docker compose run --rm -e SQLITE_PATH=/app/tmp/ventas_replay.db materializador -m ventas_streaming.materializador --group-id verificacion-idempotencia-2 --timeout 15
+2026-09-22 00:08:22,005 INFO materializador UPSERT   S3|2026-09-21T23:57:00.000Z pane=0 EARLY tickets=9 total=4535000 dup_descartados=0
+2026-09-22 00:08:22,013 INFO materializador UPSERT   S1|2026-09-21T23:57:00.000Z pane=0 EARLY tickets=9 total=5454000 dup_descartados=0
+2026-09-22 00:08:22,020 INFO materializador UPSERT   S5|2026-09-21T23:57:00.000Z pane=0 EARLY tickets=4 total=960000 dup_descartados=1
+2026-09-22 00:08:22,027 INFO materializador UPSERT   S1|2026-09-21T23:57:00.000Z pane=1 EARLY tickets=14 total=7596000 dup_descartados=1
+2026-09-22 00:08:22,035 INFO materializador UPSERT   S3|2026-09-21T23:57:00.000Z pane=1 EARLY tickets=10 total=4941000 dup_descartados=0
+2026-09-22 00:08:22,043 INFO materializador UPSERT   S5|2026-09-21T23:57:00.000Z pane=1 ON_TIME tickets=4 total=960000 dup_descartados=1
+2026-09-22 00:08:22,052 INFO materializador UPSERT   S3|2026-09-21T23:57:00.000Z pane=2 ON_TIME tickets=10 total=4941000 dup_descartados=0
+2026-09-22 00:08:22,061 INFO materializador UPSERT   S1|2026-09-21T23:57:00.000Z pane=2 ON_TIME tickets=14 total=7596000 dup_descartados=1
+2026-09-22 00:08:22,068 INFO materializador UPSERT   S5|2026-09-21T23:57:00.000Z pane=2 LATE tickets=4 total=960000 dup_descartados=1
+2026-09-22 00:08:22,075 INFO materializador UPSERT   S1|2026-09-21T23:57:00.000Z pane=3 LATE tickets=14 total=7596000 dup_descartados=1
+2026-09-22 00:08:37,387 INFO materializador consumo terminado: {"upsert": 37, "rechazo": 7}
+{"contadores": {"upsert": 37, "rechazo": 7}, "filas_ventas_por_ventana": 18, "panes_aplicados_acumulados": 37, "rechazos_por_motivo": {"campos_faltantes": 1, "demasiado_t
+...
+
+$ comparación de tablas (sqlite3)
+ventas_por_ventana: en línea 18 filas | replay 18 filas | contenido idéntico (12 columnas): True
+rechazos:           en línea 7 | replay 7 | idénticos: True
+panes aplicados:    en línea 90 (todos los panes emitidos) | replay 37 (solo los que sobrevivieron a la compactación) -> mismo estado final

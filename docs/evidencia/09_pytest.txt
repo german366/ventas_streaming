@@ -1,0 +1,47 @@
+$ uv run pytest -v
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0 -- /home/german/Escritorio/2026/MIAA/MODULOS/Streaming_de_datos_y_sus_aplicaciones/TF/ventas-streaming/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/german/Escritorio/2026/MIAA/MODULOS/Streaming_de_datos_y_sus_aplicaciones/TF/ventas-streaming
+configfile: pyproject.toml
+testpaths: tests
+collecting ... collected 33 items
+
+tests/test_contratos.py::test_evento_valido_v2_se_decodifica_sin_cambios PASSED [  3%]
+tests/test_contratos.py::test_evento_v1_se_actualiza_al_esquema_actual_con_valores_por_defecto PASSED [  6%]
+tests/test_contratos.py::test_eventos_invalidos_reportan_un_motivo_estable[<lambda>-campos_faltantes] PASSED [  9%]
+tests/test_contratos.py::test_eventos_invalidos_reportan_un_motivo_estable[<lambda>-version_no_soportada] PASSED [ 12%]
+tests/test_contratos.py::test_eventos_invalidos_reportan_un_motivo_estable[<lambda>-event_type_desconocido] PASSED [ 15%]
+tests/test_contratos.py::test_eventos_invalidos_reportan_un_motivo_estable[<lambda>-event_time_invalido] PASSED [ 18%]
+tests/test_contratos.py::test_eventos_invalidos_reportan_un_motivo_estable[<lambda>-monto_invalido] PASSED [ 21%]
+tests/test_contratos.py::test_eventos_invalidos_reportan_un_motivo_estable[<lambda>-items_invalido] PASSED [ 24%]
+tests/test_contratos.py::test_eventos_invalidos_reportan_un_motivo_estable[<lambda>-metodo_pago_desconocido] PASSED [ 27%]
+tests/test_contratos.py::test_eventos_invalidos_reportan_un_motivo_estable[<lambda>-clave_inconsistente] PASSED [ 30%]
+tests/test_contratos.py::test_eventos_invalidos_reportan_un_motivo_estable[<lambda>-payload_incompleto] PASSED [ 33%]
+tests/test_contratos.py::test_json_corrupto_es_rechazado PASSED          [ 36%]
+tests/test_contratos.py::test_clave_del_agregado_es_estable_por_sucursal_y_ventana PASSED [ 39%]
+tests/test_materializador.py::test_upsert_reemplaza_por_pane_mas_reciente_sin_duplicar_filas PASSED [ 42%]
+tests/test_materializador.py::test_reentrega_del_mismo_pane_y_pane_viejo_son_idempotentes PASSED [ 45%]
+tests/test_materializador.py::test_releer_todo_el_topico_produce_el_mismo_estado_final PASSED [ 48%]
+tests/test_materializador.py::test_pane_vacio_con_el_mismo_indice_no_borra_el_resultado PASSED [ 51%]
+tests/test_materializador.py::test_tras_un_reinicio_del_pipeline_un_pane_con_mas_tickets_se_aplica_aunque_el_indice_baje PASSED [ 54%]
+tests/test_materializador.py::test_rechazos_se_registran_una_sola_vez PASSED [ 57%]
+tests/test_productor.py::test_generador_es_determinista_y_produce_eventos_validos PASSED [ 60%]
+tests/test_productor.py::test_eventos_invalidos_por_tipo_son_rechazados_por_el_contrato PASSED [ 63%]
+tests/test_productor.py::test_tardio_aceptable_cae_en_la_ventana_anterior_dentro_de_la_lateness PASSED [ 66%]
+tests/test_productor.py::test_simulador_etiqueta_cada_perturbacion PASSED [ 69%]
+tests/test_productor.py::test_escenario_demo_cubre_todos_los_casos_adversos PASSED [ 72%]
+tests/test_productor.py::test_escenario_demo_sin_vigilante_usa_la_heuristica_de_reloj PASSED [ 75%]
+tests/test_transformaciones.py::test_combinefn_deduplica_por_event_id_y_suma_incrementalmente PASSED [ 78%]
+tests/test_transformaciones.py::test_merge_de_acumuladores_descuenta_solapamientos PASSED [ 81%]
+tests/test_transformaciones.py::test_nucleo_agrega_por_sucursal_y_ventana_descartando_duplicados PASSED [ 84%]
+tests/test_transformaciones.py::test_nucleo_separa_invalidos_con_motivo PASSED [ 87%]
+tests/test_transformaciones.py::test_nucleo_desvia_demasiado_tardios_segun_watermark_heuristico PASSED [ 90%]
+tests/test_ventanas.py::test_pane_on_time_pane_late_y_descarte_fuera_de_lateness PASSED [ 93%]
+tests/test_ventanas.py::test_duplicado_tardio_no_altera_el_total_pero_reemite_el_pane PASSED [ 96%]
+tests/test_ventanas.py::test_evento_desordenado_dentro_de_la_ventana_se_absorbe_sin_pane_extra PASSED [100%]
+
+
+
+
+======================== 33 passed, 3 warnings in 8.89s ========================

@@ -1,0 +1,63 @@
+$ curl localhost:8081/jobs/overview
+{
+    "jobs": [
+        {
+            "jid": "2f695483c3354cd55c34759c02294269",
+            "name": "ventas-por-ventana",
+            "start-time": 1790035004578,
+            "end-time": -1,
+            "duration": 382788,
+            "state": "RUNNING",
+            "last-modification": 1790035055627,
+            "tasks": {
+                "running": 7,
+                "canceling": 0,
+                "canceled": 0,
+                "total": 7,
+                "created": 0,
+                "scheduled": 0,
+                "deploying": 0,
+                "reconciling": 0,
+                "finished": 0,
+                "initializing": 0,
+                "failed": 0
+            }
+        }
+    ]
+}
+
+$ curl localhost:8081/jobs/2f695483c3354cd55c34759c02294269  (vértices y registros)
+estado RUNNING duración(s) 382
+  RUNNING  p=1 in=    0 out=    1  Source: Impulse
+  RUNNING  p=2 in=    1 out=    4  [4]Leer ventas desde Kafka/KafkaIO.Read/KafkaIO.Read.ReadFromKafkaViaSDF/{Create.Values, ParDo(GenerateKafkaSourceDescri
+  RUNNING  p=2 in=    4 out=   42  [3]Leer ventas desde Kafka/{KafkaIO.Read, Remove Kafka Metadata} -> [6]{Parsear y validar contrato, Unir rechazos, Asign
+  RUNNING  p=2 in=   42 out=    0  Combinar ventas por sucursal/GroupByKey -> [3]{Combinar ventas por sucursal, Formatear agregado, Codificar agregados} ->
+
+$ curl localhost:8081/jobs/2f695483c3354cd55c34759c02294269/checkpoints
+conteos {'restored': 0, 'total': 13, 'in_progress': 0, 'completed': 11, 'failed': 2}
+último completado: id 11 duración ms 5717 estado bytes 456387
+   11 COMPLETED ms 5717 bytes 456387
+   10 COMPLETED ms 5642 bytes 419885
+   9 COMPLETED ms 1672 bytes 379906
+   8 COMPLETED ms 2127 bytes 345142
+   7 COMPLETED ms 1640 bytes 350793
+   6 COMPLETED ms 1631 bytes 314291
+   5 COMPLETED ms 9327 bytes 319907
+   4 COMPLETED ms 10737 bytes 260318
+
+$ docker compose ps
+SERVICE           IMAGE                                     STATUS
+beam-job-server   apache/beam_flink1.19_job_server:2.74.0   Up 9 minutes
+jobmanager        ventas-streaming/flink:latest             Up 9 minutes
+kafka             apache/kafka:4.1.1                        Up 9 minutes (healthy)
+materializador    ventas-streaming/app:latest               Up 8 minutes
+pipeline          ventas-streaming/app:latest               Up 8 minutes
+taskmanager       ventas-streaming/flink:latest             Up 9 minutes
+
+$ docker stats --no-stream
+ventas-streaming-pipeline-1          172.2MiB / 1.758GiB   0.34%
+ventas-streaming-materializador-1    16.9MiB / 400MiB      0.15%
+ventas-streaming-beam-job-server-1   384.7MiB / 900MiB     1.05%
+ventas-streaming-taskmanager-1       1.567GiB / 3.223GiB   10.10%
+ventas-streaming-kafka-1             534.3MiB / 1.172GiB   3.98%
+ventas-streaming-jobmanager-1        292.1MiB / 900MiB     1.75%

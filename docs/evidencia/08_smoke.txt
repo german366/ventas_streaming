@@ -1,0 +1,163 @@
+$ make smoke
+ Container ventas-streaming-smoke-1 Recreate 
+ Container ventas-streaming-smoke-1 Recreated 
+Attaching to smoke-1
+ Container ventas-streaming-smoke-1 Starting 
+ Container ventas-streaming-smoke-1 Started 
+2026-09-22 00:30:46,182 INFO smoke tópicos efímeros creados con sufijo 79d5e70e
+2026-09-22 00:30:46,696 INFO productor [OK] S5-pos-01-000001 key=S5 event_time=2026-09-22T00:30:28+00:00 -> partición 3 offset 0
+2026-09-22 00:30:46,696 INFO productor [OK] S5-pos-01-000002 key=S5 event_time=2026-09-22T00:30:34+00:00 -> partición 3 offset 1
+2026-09-22 00:30:46,697 INFO productor [OK] S5-pos-02-000001 key=S5 event_time=2026-09-22T00:30:35+00:00 -> partición 3 offset 2
+2026-09-22 00:30:46,698 INFO productor [OK] S2-pos-03-000001 key=S2 event_time=2026-09-22T00:30:16+00:00 -> partición 0 offset 0
+2026-09-22 00:30:46,698 INFO productor [OK] S2-pos-01-000001 key=S2 event_time=2026-09-22T00:30:17+00:00 -> partición 0 offset 1
+2026-09-22 00:30:46,699 INFO productor [OK] S2-pos-03-000002 key=S2 event_time=2026-09-22T00:30:18+00:00 -> partición 0 offset 2
+2026-09-22 00:30:46,700 INFO productor [OK] S2-pos-02-000001 key=S2 event_time=2026-09-22T00:30:20+00:00 -> partición 0 offset 3
+2026-09-22 00:30:46,700 INFO productor [OK] S2-pos-01-000002 key=S2 event_time=2026-09-22T00:30:21+00:00 -> partición 0 offset 4
+2026-09-22 00:30:46,700 INFO productor [OK] S2-pos-02-000002 key=S2 event_time=2026-09-22T00:30:21+00:00 -> partición 0 offset 5
+2026-09-22 00:30:46,701 INFO productor [OK] S2-pos-02-000003 key=S2 event_time=2026-09-22T00:30:22+00:00 -> partición 0 offset 6
+2026-09-22 00:30:46,701 INFO productor [OK] S2-pos-03-000003 key=S2 event_time=2026-09-22T00:30:23+00:00 -> partición 0 offset 7
+2026-09-22 00:30:46,702 INFO productor [OK] S2-pos-01-000003 key=S2 event_time=2026-09-22T00:30:24+00:00 -> partición 0 offset 8
+2026-09-22 00:30:46,702 INFO productor [OK] S2-pos-03-000004 key=S2 event_time=2026-09-22T00:30:25+00:00 -> partición 0 offset 9
+2026-09-22 00:30:46,704 INFO productor [OK] S2-pos-02-000004 key=S2 event_time=2026-09-22T00:30:26+00:00 -> partición 0 offset 10
+2026-09-22 00:30:46,705 INFO productor [OK] S2-pos-02-000005 key=S2 event_time=2026-09-22T00:30:27+00:00 -> partición 0 offset 11
+2026-09-22 00:30:46,705 INFO productor [OK] S2-pos-03-000005 key=S2 event_time=2026-09-22T00:30:31+00:00 -> partición 0 offset 12
+2026-09-22 00:30:46,705 INFO productor [OK] S2-pos-01-000004 key=S2 event_time=2026-09-22T00:30:32+00:00 -> partición 0 offset 13
+2026-09-22 00:30:46,706 INFO productor [OK] S2-pos-01-000005 key=S2 event_time=2026-09-22T00:30:34+00:00 -> partición 0 offset 14
+2026-09-22 00:30:46,706 INFO productor [OK] S2-pos-03-000006 key=S2 event_time=2026-09-22T00:30:37+00:00 -> partición 0 offset 15
+2026-09-22 00:30:46,706 INFO productor [OK] S2-pos-03-000007 key=S2 event_time=2026-09-22T00:30:38+00:00 -> partición 0 offset 16
+2026-09-22 00:30:46,706 INFO productor [OK] S2-pos-01-000006 key=S2 event_time=2026-09-22T00:30:39+00:00 -> partición 0 offset 17
+2026-09-22 00:30:46,707 INFO productor [DUPLICADO] S2-pos-03-000001 key=S2 event_time=2026-09-22T00:30:16+00:00 -> partición 0 offset 18
+2026-09-22 00:30:46,707 INFO productor [DUPLICADO] S2-pos-01-000001 key=S2 event_time=2026-09-22T00:30:17+00:00 -> partición 0 offset 19
+2026-09-22 00:30:46,708 INFO productor [MUY_TARDIO] S2-pos-02-000006 key=S2 event_time=2026-09-22T00:25:16+00:00 -> partición 0 offset 20
+2026-09-22 00:30:46,709 INFO productor [OK] S4-pos-01-000001 key=S4 event_time=2026-09-22T00:30:17+00:00 -> partición 1 offset 0
+2026-09-22 00:30:46,710 INFO productor [OK] S4-pos-02-000001 key=S4 event_time=2026-09-22T00:30:20+00:00 -> partición 1 offset 1
+2026-09-22 00:30:46,710 INFO productor [OK] S6-pos-02-000001 key=S6 event_time=2026-09-22T00:30:23+00:00 -> partición 1 offset 2
+2026-09-22 00:30:46,712 INFO productor [OK] S4-pos-03-000001 key=S4 event_time=2026-09-22T00:30:24+00:00 -> partición 1 offset 3
+2026-09-22 00:30:46,712 INFO productor [OK] S4-pos-03-000002 key=S4 event_time=2026-09-22T00:30:29+00:00 -> partición 1 offset 4
+2026-09-22 00:30:46,715 INFO productor [OK] S4-pos-01-000002 key=S4 event_time=2026-09-22T00:30:33+00:00 -> partición 1 offset 5
+2026-09-22 00:30:46,716 INFO productor [OK] S4-pos-02-000002 key=S4 event_time=2026-09-22T00:30:36+00:00 -> partición 1 offset 6
+2026-09-22 00:30:46,716 INFO productor [OK] S4-pos-01-000003 key=S4 event_time=2026-09-22T00:30:36+00:00 -> partición 1 offset 7
+2026-09-22 00:30:46,717 INFO productor [OK] S4-pos-02-000003 key=S4 event_time=2026-09-22T00:30:37+00:00 -> partición 1 offset 8
+2026-09-22 00:30:46,719 INFO productor [OK] S3-pos-01-000001 key=S3 event_time=2026-09-22T00:30:16+00:00 -> partición 2 offset 0
+2026-09-22 00:30:46,720 INFO productor [OK] S3-pos-02-000001 key=S3 event_time=2026-09-22T00:30:18+00:00 -> partición 2 offset 1
+2026-09-22 00:30:46,721 INFO productor [OK] S3-pos-03-000001 key=S3 event_time=2026-09-22T00:30:19+00:00 -> partición 2 offset 2
+2026-09-22 00:30:46,721 INFO productor [OK] S1-pos-02-000001 key=S1 event_time=2026-09-22T00:30:19+00:00 -> partición 2 offset 3
+2026-09-22 00:30:46,722 INFO productor [OK] S1-pos-03-000001 key=S1 event_time=2026-09-22T00:30:22+00:00 -> partición 2 offset 4
+2026-09-22 00:30:46,722 INFO productor [OK] S3-pos-01-000002 key=S3 event_time=2026-09-22T00:30:25+00:00 -> partición 2 offset 5
+2026-09-22 00:30:46,722 INFO productor [OK] S1-pos-03-000002 key=S1 event_time=2026-09-22T00:30:26+00:00 -> partición 2 offset 6
+2026-09-22 00:30:46,722 INFO productor [OK] S3-pos-03-000002 key=S3 event_time=2026-09-22T00:30:27+00:00 -> partición 2 offset 7
+2026-09-22 00:30:46,723 INFO productor [OK] S1-pos-02-000002 key=S1 event_time=2026-09-22T00:30:28+00:00 -> partición 2 offset 8
+2026-09-22 00:30:46,724 INFO productor [OK] S1-pos-02-000003 key=S1 event_time=2026-09-22T00:30:29+00:00 -> partición 2 offset 9
+2026-09-22 00:30:46,725 INFO productor [OK] S1-pos-01-000001 key=S1 event_time=2026-09-22T00:30:30+00:00 -> partición 2 offset 10
+2026-09-22 00:30:46,725 INFO productor [OK] S1-pos-03-000003 key=S1 event_time=2026-09-22T00:30:30+00:00 -> partición 2 offset 11
+2026-09-22 00:30:46,725 INFO productor [OK] S3-pos-01-000003 key=S3 event_time=2026-09-22T00:30:31+00:00 -> partición 2 offset 12
+2026-09-22 00:30:46,726 INFO productor [OK] S3-pos-03-000003 key=S3 event_time=2026-09-22T00:30:32+00:00 -> partición 2 offset 13
+2026-09-22 00:30:46,726 INFO productor [OK] S1-pos-03-000004 key=S1 event_time=2026-09-22T00:30:33+00:00 -> partición 2 offset 14
+2026-09-22 00:30:46,727 INFO productor [OK] S1-pos-02-000004 key=S1 event_time=2026-09-22T00:30:35+00:00 -> partición 2 offset 15
+2026-09-22 00:30:46,727 INFO productor [OK] S3-pos-01-000004 key=S3 event_time=2026-09-22T00:30:38+00:00 -> partición 2 offset 16
+2026-09-22 00:30:46,727 INFO productor [OK] S1-pos-02-000005 key=S1 event_time=2026-09-22T00:30:39+00:00 -> partición 2 offset 17
+2026-09-22 00:30:46,728 INFO productor [OK] S3-pos-03-000004 key=S3 event_time=2026-09-22T00:30:40+00:00 -> partición 2 offset 18
+2026-09-22 00:30:46,728 INFO productor [OK] S3-pos-01-000005 key=S3 event_time=2026-09-22T00:30:40+00:00 -> partición 2 offset 19
+2026-09-22 00:30:46,728 INFO productor [DUPLICADO] S3-pos-01-000001 key=S3 event_time=2026-09-22T00:30:16+00:00 -> partición 2 offset 20
+2026-09-22 00:30:46,728 INFO productor [INVALIDO:json_corrupto] S1-pos-03-000005 key=S1 event_time=2026-09-22T00:30:46+00:00 -> partición 2 offset 21
+2026-09-22 00:30:46,728 INFO productor [INVALIDO:monto_negativo] S1-pos-03-000005 key=S1 event_time=2026-09-22T00:30:46+00:00 -> partición 2 offset 22
+2026-09-22 00:30:46,728 INFO productor [INVALIDO:sin_payload] S1-pos-03-000005 key=S1 event_time=2026-09-22T00:30:46+00:00 -> partición 2 offset 23
+2026-09-22 00:30:46,729 INFO smoke lote publicado: {"enviados": 57, "confirmados": 57, "errores": 0, "por_etiqueta": {"DUPLICADO": 3, "INVALIDO:json_corrupto": 1, "INVALIDO:monto_negativo": 1, "INVALIDO:sin_payload": 1, "MUY_TARDIO": 1, "OK": 50}}
+2026-09-22 00:30:48,772 INFO pipeline enviando job ventas-smoke-79d5e70e a beam-job-server:8099: ventana=60s lateness=30s early=10s paralelismo=2 grupo=smoke-beam-79d5e70e
+2026-09-22 00:30:48,891 INFO apache_beam.utils.subprocess_server Using cached job server jar from https://repo.maven.apache.org/maven2/org/apache/beam/beam-sdks-java-io-expansion-service/2.74.0/beam-sdks-java-io-expansion-service-2.74.0.jar
+2026-09-22 00:30:48,891 INFO root Starting a JAR-based expansion service from JAR /app/.apache_beam/cache/jars/beam-sdks-java-io-expansion-service-2.74.0.jar 
+2026-09-22 00:30:48,893 INFO apache_beam.utils.subprocess_server Starting service with ['java' '-jar' '/app/.apache_beam/cache/jars/beam-sdks-java-io-expansion-service-2.74.0.jar' '53243' '--filesToStage=/app/.apache_beam/cache/jars/beam-sdks-java-io-expansion-service-2.74.0.jar' '--defaultEnvironmentType=PROCESS' '--defaultEnvironmentConfig={"command":"/opt/apache/beam/boot"}']
+2026-09-22 00:31:11,051 INFO root Starting a JAR-based expansion service from JAR /app/.apache_beam/cache/jars/beam-sdks-java-io-expansion-service-2.74.0.jar 
+2026-09-22 00:31:11,051 INFO apache_beam.utils.subprocess_server Starting service with ['java' '-jar' '/app/.apache_beam/cache/jars/beam-sdks-java-io-expansion-service-2.74.0.jar' '37471' '--filesToStage=/app/.apache_beam/cache/jars/beam-sdks-java-io-expansion-service-2.74.0.jar' '--defaultEnvironmentType=PROCESS' '--defaultEnvironmentConfig={"command":"/opt/apache/beam/boot"}']
+2026-09-22 00:31:31,264 INFO root Starting a JAR-based expansion service from JAR /app/.apache_beam/cache/jars/beam-sdks-java-io-expansion-service-2.74.0.jar 
+2026-09-22 00:31:31,265 INFO apache_beam.utils.subprocess_server Starting service with ['java' '-jar' '/app/.apache_beam/cache/jars/beam-sdks-java-io-expansion-service-2.74.0.jar' '59153' '--filesToStage=/app/.apache_beam/cache/jars/beam-sdks-java-io-expansion-service-2.74.0.jar' '--defaultEnvironmentType=PROCESS' '--defaultEnvironmentConfig={"command":"/opt/apache/beam/boot"}']
+2026-09-22 00:31:49,489 WARNING apache_beam.options.pipeline_options Unparseable argument: --max_bundle_time_millis=1000
+2026-09-22 00:31:49,505 WARNING apache_beam.options.pipeline_options Unparseable argument: --max_bundle_size=1000
+WARNING: The directory '/app/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+2026-09-22 00:31:50,636 WARNING apache_beam.options.pipeline_options Discarding unparseable args: ['--max_bundle_time_millis=1000']
+2026-09-22 00:31:53,273 INFO apache_beam.runners.portability.portable_runner Job state changed to STOPPED
+2026-09-22 00:31:53,274 INFO apache_beam.runners.portability.portable_runner Job state changed to STARTING
+2026-09-22 00:31:53,275 INFO apache_beam.runners.portability.portable_runner Job state changed to RUNNING
+2026-09-22 00:32:39,702 INFO apache_beam.runners.portability.portable_runner Job state changed to DONE
+{"state": "DONE"}
+2026-09-22 00:32:40,153 INFO materializador DLQ motivo=json_invalido event_id=None detalle=Expecting ',' delimiter: line 1 column 41 (char 40)
+2026-09-22 00:32:40,165 INFO materializador DLQ motivo=monto_invalido event_id=None detalle=-130000
+2026-09-22 00:32:40,177 INFO materializador DLQ motivo=campos_faltantes event_id=None detalle=payload
+2026-09-22 00:32:40,188 INFO materializador DLQ motivo=demasiado_tardio event_id=S2-pos-02-000006 detalle=234s más allá del horizonte
+2026-09-22 00:32:40,203 INFO materializador UPSERT   S4|2026-09-22T00:30:00.000Z pane=0 ON_TIME tickets=8 total=2979000 dup_descartados=0
+2026-09-22 00:32:40,211 INFO materializador IGNORADO S4|2026-09-22T00:30:00.000Z pane=0 ON_TIME tickets=0 total=0 dup_descartados=0
+2026-09-22 00:32:40,223 INFO materializador UPSERT   S3|2026-09-22T00:30:00.000Z pane=0 ON_TIME tickets=10 total=4626000 dup_descartados=1
+2026-09-22 00:32:40,230 INFO materializador IGNORADO S3|2026-09-22T00:30:00.000Z pane=0 ON_TIME tickets=0 total=0 dup_descartados=0
+2026-09-22 00:32:40,241 INFO materializador UPSERT   S6|2026-09-22T00:30:00.000Z pane=0 ON_TIME tickets=1 total=65000 dup_descartados=0
+2026-09-22 00:32:40,253 INFO materializador UPSERT   S1|2026-09-22T00:30:00.000Z pane=0 ON_TIME tickets=10 total=2424000 dup_descartados=0
+2026-09-22 00:32:40,261 INFO materializador IGNORADO S1|2026-09-22T00:30:00.000Z pane=0 ON_TIME tickets=0 total=0 dup_descartados=0
+2026-09-22 00:32:40,268 INFO materializador IGNORADO S6|2026-09-22T00:30:00.000Z pane=0 ON_TIME tickets=0 total=0 dup_descartados=0
+2026-09-22 00:32:40,279 INFO materializador UPSERT   S5|2026-09-22T00:30:00.000Z pane=0 ON_TIME tickets=3 total=1537000 dup_descartados=0
+2026-09-22 00:32:40,286 INFO materializador IGNORADO S5|2026-09-22T00:30:00.000Z pane=0 ON_TIME tickets=0 total=0 dup_descartados=0
+2026-09-22 00:32:40,297 INFO materializador UPSERT   S2|2026-09-22T00:30:00.000Z pane=0 ON_TIME tickets=18 total=6420000 dup_descartados=2
+2026-09-22 00:32:40,304 INFO materializador IGNORADO S2|2026-09-22T00:30:00.000Z pane=0 ON_TIME tickets=0 total=0 dup_descartados=0
+2026-09-22 00:32:45,314 INFO materializador sin mensajes durante 5 s; terminando
+
+== ventas_por_ventana (último pane por sucursal y ventana) ==
+aggregate_id                | window_start             | window_end               | ticket_count | total_amount_gs | duplicates_discarded | pane_index | pane_timing | panes_recibidos
+----------------------------+--------------------------+--------------------------+--------------+-----------------+----------------------+------------+-------------+----------------
+S1|2026-09-22T00:30:00.000Z | 2026-09-22T00:30:00.000Z | 2026-09-22T00:31:00.000Z | 10           | 2424000         | 0                    | 0          | ON_TIME     | 1              
+S2|2026-09-22T00:30:00.000Z | 2026-09-22T00:30:00.000Z | 2026-09-22T00:31:00.000Z | 18           | 6420000         | 2                    | 0          | ON_TIME     | 1              
+S3|2026-09-22T00:30:00.000Z | 2026-09-22T00:30:00.000Z | 2026-09-22T00:31:00.000Z | 10           | 4626000         | 1                    | 0          | ON_TIME     | 1              
+S4|2026-09-22T00:30:00.000Z | 2026-09-22T00:30:00.000Z | 2026-09-22T00:31:00.000Z | 8            | 2979000         | 0                    | 0          | ON_TIME     | 1              
+S5|2026-09-22T00:30:00.000Z | 2026-09-22T00:30:00.000Z | 2026-09-22T00:31:00.000Z | 3            | 1537000         | 0                    | 0          | ON_TIME     | 1              
+S6|2026-09-22T00:30:00.000Z | 2026-09-22T00:30:00.000Z | 2026-09-22T00:31:00.000Z | 1            | 65000           | 0                    | 0          | ON_TIME     | 1              
+
+== rechazos (DLQ) ==
+id | motivo           | detalle                                             | event_id         | event_time               | rechazado_en            
+---+------------------+-----------------------------------------------------+------------------+--------------------------+-------------------------
+1  | json_invalido    | Expecting ',' delimiter: line 1 column 41 (char 40) | None             | None                     | 2026-09-22T00:32:35.672Z
+2  | monto_invalido   | -130000                                             | None             | None                     | 2026-09-22T00:32:35.672Z
+3  | campos_faltantes | payload                                             | None             | None                     | 2026-09-22T00:32:35.672Z
+4  | demasiado_tardio | 234s más allá del horizonte                         | S2-pos-02-000006 | 2026-09-22T00:25:16.183Z | 2026-09-22T00:32:35.671Z
+
+== resumen ==
+{
+  "filas_ventas_por_ventana": 6,
+  "panes_aplicados_acumulados": 6,
+  "rechazos_por_motivo": {
+    "campos_faltantes": 1,
+    "demasiado_tardio": 1,
+    "json_invalido": 1,
+    "monto_invalido": 1
+  },
+  "mensajes_vistos": 12,
+  "upserts_aplicados": 6,
+  "panes_ignorados": 6
+}
+{
+  "sufijo": "79d5e70e",
+  "publicados": {
+    "enviados": 57,
+    "confirmados": 57,
+    "errores": 0,
+    "por_etiqueta": {
+      "DUPLICADO": 3,
+      "INVALIDO:json_corrupto": 1,
+      "INVALIDO:monto_negativo": 1,
+      "INVALIDO:sin_payload": 1,
+      "MUY_TARDIO": 1,
+      "OK": 50
+    }
+  },
+  "filas_salida": 6,
+  "tickets_unicos_en_salida": 50,
+  "duplicados_descartados": 3,
+  "rechazos_por_motivo": {
+    "campos_faltantes": 1,
+    "demasiado_tardio": 1,
+    "json_invalido": 1,
+    "monto_invalido": 1
+  }
+}
+2026-09-22 00:32:45,331 INFO smoke SMOKE OK
+[Ksmoke-1 exited with code 0
+ Compose Stopping Aborting on container exit...
+ Container ventas-streaming-smoke-1 Stopping 
+ Container ventas-streaming-smoke-1 Stopped 
+exit=0

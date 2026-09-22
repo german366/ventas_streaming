@@ -1,0 +1,54 @@
+digraph arquitectura {
+  rankdir=TB; newrank=true; compound=true;
+  graph [fontname="Helvetica", fontsize=11, pad=0.3, nodesep=0.3, ranksep=0.6, bgcolor="white"];
+  node  [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", fillcolor="#F7F7F7", color="#555555"];
+  edge  [fontname="Helvetica", fontsize=9, color="#444444"];
+
+  subgraph cluster_fuente {
+    label="1 · FUENTE"; style="rounded,dashed"; color="#8E8E8E"; fontcolor="#333333";
+    productor [label="Productor sintético (Python, confluent-kafka)\nPOS de 6 sucursales · semilla fija\ninyecta duplicados, desorden, tardíos, inválidos", fillcolor="#E8F1FB"];
+  }
+
+  subgraph cluster_kafka_in {
+    label="2 · APACHE KAFKA 4.1 (KRaft) — entrada"; style="rounded,dashed"; color="#8E8E8E"; fontcolor="#333333";
+    entrada  [label="ventas.confirmadas.v1\n4 particiones · clave = store_id · timestamp = event_time", fillcolor="#FFF4DD"];
+  }
+
+  subgraph cluster_beam {
+    label="3 · APACHE BEAM 2.74 (Python SDK) sobre FLINK 1.19 · PortableRunner · streaming · paralelismo 2"; style="rounded,dashed"; color="#8E8E8E"; fontcolor="#333333";
+    { rank=same;
+      read     [label="KafkaIO\nReadFromKafka\ncreate_time_policy", fillcolor="#E9F5E9"];
+      parse    [label="ParDo\nParsearYValidar\ncontrato v1/v2 · plausibilidad", fillcolor="#E9F5E9"];
+      ts       [label="Map\nasignar_tiempo_evento\ntimestamp = event_time", fillcolor="#E9F5E9"];
+      win      [label="WindowInto FixedWindows(60 s)\nAfterWatermark(early 10 s, late 1)\nlateness 30 s · ACCUMULATING", fillcolor="#E9F5E9"];
+      comb     [label="CombinePerKey(store_id)\nVentasPorSucursalCombineFn\ndedup por event_id · totales", fillcolor="#E9F5E9"];
+      fmt      [label="ParDo FormatearAgregado\naggregate_id = store|window_start\npane_index · pane_timing", fillcolor="#E9F5E9"];
+      write    [label="KafkaIO\nWriteToKafka\nidempotente · acks=all", fillcolor="#E9F5E9"];
+    }
+    read -> parse -> ts -> win -> comb -> fmt -> write;
+  }
+
+  subgraph cluster_kafka_out {
+    label="2 · APACHE KAFKA — salida"; style="rounded,dashed"; color="#8E8E8E"; fontcolor="#333333";
+    { rank=same;
+      salida   [label="ventas.por_ventana.v1\n4 particiones · clave = aggregate_id\ncleanup.policy = compact (último pane por clave)", fillcolor="#FFF4DD"];
+      dlq      [label="ventas.dlq.v1\n2 particiones\ninválidos + demasiado tardíos, con motivo", fillcolor="#FDE2E2"];
+    }
+  }
+
+  subgraph cluster_sink {
+    label="4 · SALIDA CONSUMIBLE E IDEMPOTENTE"; style="rounded,dashed"; color="#8E8E8E"; fontcolor="#333333";
+    { rank=same;
+      mat  [label="Materializador (Python)\nconsume ambos tópicos · commit tras persistir\nUPSERT por aggregate_id si pane_index ≥ actual", fillcolor="#EEE8F7"];
+      db   [label="SQLite tmp/ventas.db\nventas_por_ventana · rechazos", shape=cylinder, fillcolor="#EEE8F7"];
+    }
+    mat -> db;
+  }
+
+  productor -> entrada [label=" produce · enable.idempotence · acks=all"];
+  entrada -> read;
+  write -> salida [label=" un mensaje por pane (EARLY / ON_TIME / LATE)"];
+  parse -> dlq [label=" salidas laterales", style=dashed, color="#B03030"];
+  salida -> mat;
+  dlq -> mat [style=dashed, color="#B03030"];
+}

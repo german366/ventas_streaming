@@ -1,0 +1,27 @@
+# Artefactos de ejecución
+/tmp/*
+!/tmp/.gitkeep
+*.log
+*.db
+
+# Entornos y secretos locales
+.venv/
+.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+/build/
+/dist/
+
+# Herramientas
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Editor y sistema operativo
+.DS_Store
+.idea/
+.vscode/

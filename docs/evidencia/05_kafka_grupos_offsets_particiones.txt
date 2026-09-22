@@ -1,0 +1,32 @@
+$ kafka-consumer-groups.sh --describe --all-groups
+GROUP                        TOPIC                    PARTITION CURRENT-OFFSET LOG-END-OFFSET LAG 
+beam-ventas-por-ventana-v1   ventas.confirmadas.v1    1         51             51             0   
+beam-ventas-por-ventana-v1   ventas.confirmadas.v1    2         143            143            0   
+beam-ventas-por-ventana-v1   ventas.confirmadas.v1    3         25             25             0   
+beam-ventas-por-ventana-v1   ventas.confirmadas.v1    0         83             83             0   
+GROUP                        TOPIC                    PARTITION CURRENT-OFFSET LOG-END-OFFSET LAG 
+materializador-ventas-v1     ventas.por_ventana.v1    1         28             28             0   
+materializador-ventas-v1     ventas.por_ventana.v1    2         30             30             0   
+materializador-ventas-v1     ventas.dlq.v1            1         6              6              0   
+materializador-ventas-v1     ventas.por_ventana.v1    0         21             21             0   
+materializador-ventas-v1     ventas.por_ventana.v1    3         11             11             0   
+materializador-ventas-v1     ventas.dlq.v1            0         1              1              0   
+
+$ kafka-get-offsets.sh (fin de log por partición)
+ventas.confirmadas.v1:0:83
+ventas.confirmadas.v1:1:51
+ventas.confirmadas.v1:2:143
+ventas.confirmadas.v1:3:25
+ventas.por_ventana.v1:0:21
+ventas.por_ventana.v1:1:28
+ventas.por_ventana.v1:2:30
+ventas.por_ventana.v1:3:11
+ventas.dlq.v1:0:1
+ventas.dlq.v1:1:6
+
+$ distribución de claves por partición en ventas.confirmadas.v1 (skew)
+partición 0:   83 mensajes (27.5%)  claves=['S2']  S2=83
+partición 1:   51 mensajes (16.9%)  claves=['S4', 'S6']  S4=35, S6=16
+partición 2:  143 mensajes (47.4%)  claves=['S1', 'S3']  S1=95, S3=48
+partición 3:   25 mensajes ( 8.3%)  claves=['S5']  S5=25
+total 302
