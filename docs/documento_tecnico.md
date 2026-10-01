@@ -4,6 +4,8 @@ Proyecto integrador · Streaming de datos y sus aplicaciones · Maestría en Int
 
 Autor: Germán Mereles, C.I. 4.419.136 (trabajo individual; detalle en [`integrantes.md`](integrantes.md)).
 
+Repositorio: <https://github.com/german366/ventas_streaming> · Video de la demostración: <https://youtu.be/n5L7Zlr4Tjo>
+
 ## 1. Problema, usuarios y decisiones que habilita
 
 Una cadena minorista opera terminales de punto de venta (POS) en seis sucursales.

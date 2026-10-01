@@ -14,6 +14,7 @@ Productor POS ──> ventas.confirmadas.v1 ──> Beam / Flink ──> ventas.
                                               └─ inválidos / demasiado tardíos ──> ventas.dlq.v1 ──> rechazos
 ```
 
+Repositorio: <https://github.com/german366/ventas_streaming> ·
 Documento técnico: [`docs/documento_tecnico.md`](docs/documento_tecnico.md) ·
 Diagrama: [`docs/diagrama/arquitectura.png`](docs/diagrama/arquitectura.png) ·
 Evidencia de ejecución: [`docs/evidencia/`](docs/evidencia/) ·
