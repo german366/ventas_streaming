@@ -2,7 +2,7 @@
 
 Proyecto integrador · Streaming de datos y sus aplicaciones · Maestría en Inteligencia Artificial, FPUNA · Docente: Rodrigo Parra, M.Sc. · Septiembre de 2026
 
-Integrantes y contribuciones: ver [`integrantes.md`](integrantes.md).
+Autor: Germán Mereles, C.I. 4.419.136 (trabajo individual; detalle en [`integrantes.md`](integrantes.md)).
 
 ## 1. Problema, usuarios y decisiones que habilita
 
@@ -205,7 +205,9 @@ resultado o está en la DLQ con su motivo.
 | Idempotencia | Segundo consumidor con grupo nuevo | Releer ambos tópicos desde el inicio produce exactamente el mismo estado (18 filas, 7 rechazos) aunque la compactación ya eliminó parte de los panes. |
 
 La evidencia de la ejecución real (salidas capturadas sin edición) está en
-[`evidencia/`](evidencia/); el archivo `evidencia/README.md` la describe.
+[`evidencia/`](evidencia/); el archivo `evidencia/README.md` la describe. La
+demostración en video del recorrido completo está en
+<https://youtu.be/n5L7Zlr4Tjo>; el guion seguido es [`guion_demo.md`](guion_demo.md).
 
 ## 7. Límites conocidos, supuestos y mejoras
 

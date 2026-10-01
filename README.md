@@ -17,6 +17,7 @@ Productor POS ──> ventas.confirmadas.v1 ──> Beam / Flink ──> ventas.
 Documento técnico: [`docs/documento_tecnico.md`](docs/documento_tecnico.md) ·
 Diagrama: [`docs/diagrama/arquitectura.png`](docs/diagrama/arquitectura.png) ·
 Evidencia de ejecución: [`docs/evidencia/`](docs/evidencia/) ·
+Video de la demostración: <https://youtu.be/n5L7Zlr4Tjo> ·
 Guion de la demostración: [`docs/guion_demo.md`](docs/guion_demo.md) ·
 Integrantes y contribuciones: [`docs/integrantes.md`](docs/integrantes.md).
 
